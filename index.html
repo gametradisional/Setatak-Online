@@ -33,7 +33,7 @@
         <source src="musik.mp3" type="audio/mpeg">
         Browser kamu tidak mendukung audio.
       </audio>
-      <div class="text-center text-sm text-gray-300">
+      <div class="text-center text-sm text-gray-300 mt-4">
         &copy; 2025 S-1 Matematika UNRI.
       </div>
     </div>
@@ -48,8 +48,8 @@
       <div id="playerSetupContainer" class="space-y-4 max-h-96 overflow-y-auto pr-2">
         </div>
       <div class="mt-8 text-center">
-        <button onclick="saveCharacterSetup()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-xl transition-all transform hover:scale-105">Lanjut</button>
-        <button onclick="backToSetup()" class="text-white/70 hover:text-white transition-colors">← Kembali</button>
+        <button onclick="saveCharacterSetup()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl transition-all transform hover:scale-95">Lanjut</button>
+        <button onclick="backToSetup()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-xl transition-all transform hover:scale-95">Kembali</button>
       </div>
     </div>
   </div>
@@ -78,7 +78,10 @@
               <li>🏁 Pemenang: pemain pertama yang mencapai FINISH</li>
             </ul>
           </div>
-        <button onclick="backToSetup()" class="text-white/70 hover:text-white transition-colors">← Kembali</button>
+        <button onclick="backToSetup()" 
+          class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-xl transition-all transform hover:scale-95 mt-6">
+          Kembali
+        </button>
       </div>
     </div>
   </div>
@@ -162,8 +165,7 @@
       </div>
       <input type="text" id="mathAnswer" class="w-full text-center text-3xl font-bold py-4 px-4 rounded-2xl border-2 border-gray-300 focus:border-blue-500 transition-all" placeholder="Jawaban Anda"/>
       <div class="flex gap-4 mt-6">
-        <button onclick="checkAnswer()" class="flex-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold py-4 rounded-2xl transition-all transform hover:scale-105">🦶 Lompat!</button>
-        <button onclick="closeMathModal()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-bold py-4 rounded-2xl transition-colors">✗ Batal</button>
+        <button onclick="checkAnswer()" class="flex-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold py-4 rounded-2xl transition-all transform hover:scale-105 col-span-2">🦶 Lompat!</button>
       </div>
       <div id="answerFeedback" class="mt-6 text-center font-bold text-lg hidden"></div>
     </div>
@@ -182,8 +184,7 @@
         <p class="text-lg text-gray-500">Berhasil mencapai FINISH!</p>
       </div>
       <div class="flex gap-4">
-        <button onclick="backToLevelSelect(); closeWinModal()" class="flex-1 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold px-6 py-4 rounded-2xl transition-all">🎮 Main Lagi</button>
-        <button onclick="closeWinModal()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-bold px-6 py-4 rounded-2xl transition-colors">✗ Tutup</button>
+        <button onclick="backToSetup()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-bold px-6 py-4 rounded-2xl transition-colors col-span-2">Tutup</button>
       </div>
     </div>
   </div>
