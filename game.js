@@ -832,40 +832,76 @@ function showMathQuestion() {
     const input = document.getElementById('mathAnswer').value.trim();
     const fb = document.getElementById('answerFeedback');
     const correct = gameState.currentAnswer;
+    const isDummy = gameState.currentIsDummy || false; // tandai soal dummy / random
 
-    // --- jika jawabannya angka ---
-    if (!isNaN(correct)) {
-        const val = Number(input);
-        if (isNaN(val)) {
-            fb.textContent = 'Masukkan angka yang valid!';
-            fb.className = 'mt-6 text-center font-bold text-lg text-red-600';
-            fb.classList.remove('hidden');
-            return;
+    // --- Soal dari data dummy ---
+    if (isDummy) {
+        // angka
+        if (!isNaN(correct)) {
+            const val = Number(input);
+            if (isNaN(val)) {
+                fb.textContent = 'Masukkan angka yang valid!';
+                fb.className = 'mt-6 text-center font-bold text-lg text-red-600';
+                fb.classList.remove('hidden');
+                return;
+            }
+
+            if (Math.abs(val - Number(correct)) < 1e-6) {
+                // benar
+                fb.textContent = '✅ Benar!';
+                fb.className = 'mt-6 text-center font-bold text-lg text-green-600';
+                fb.classList.remove('hidden');
+                setTimeout(()=>{
+                    moveCurrentPlayer();
+                    closeMathModal();
+                },1200);
+            } else {
+                // salah
+                fb.textContent = `❌ Salah! Jawaban: ${correct}`;
+                fb.className = 'mt-6 text-center font-bold text-lg text-red-600';
+                fb.classList.remove('hidden');
+                setTimeout(()=>{
+                    closeMathModal();
+                    nextPlayer();
+                },1500);
+            }
         }
+        // teks
+        else {
+            if (input.toLowerCase() === String(correct).toLowerCase()) {
+                fb.textContent = '✅ Benar!';
+                fb.className = 'mt-6 text-center font-bold text-lg text-green-600';
+                fb.classList.remove('hidden');
+                setTimeout(()=>{
+                    moveCurrentPlayer();
+                    closeMathModal();
+                },1200);
+            } else {
+                fb.textContent = `❌ Salah! Jawaban: ${correct}`;
+                fb.className = 'mt-6 text-center font-bold text-lg text-red-600';
+                fb.classList.remove('hidden');
+                setTimeout(()=>{
+                    closeMathModal();
+                    nextPlayer();
+                },1500);
+            }
+        }
+    }
 
-        if (Math.abs(val - Number(correct)) < 1e-6) {
-            // benar
-            fb.textContent = '✅ Benar!';
-            fb.className = 'mt-6 text-center font-bold text-lg text-green-600';
-            fb.classList.remove('hidden');
-            setTimeout(()=>{
-                moveCurrentPlayer();
-                closeMathModal();
-            },1200);
-        } else {
-            // salah
-            fb.textContent = `❌ Salah! Jawaban: ${correct}`;
+    // --- Soal random operasi (x op1 y op2 z) ---
+    else {
+        if (input === "") {
+            fb.textContent = '❌ Jawaban tidak boleh kosong!';
             fb.className = 'mt-6 text-center font-bold text-lg text-red-600';
             fb.classList.remove('hidden');
             setTimeout(()=>{
                 closeMathModal();
                 nextPlayer();
             },1500);
+            return;
         }
-    }
-    // --- jika jawabannya teks ---
-    else {
-        if (input.toLowerCase() === String(correct).toLowerCase()) {
+
+        if (input == correct) {
             fb.textContent = '✅ Benar!';
             fb.className = 'mt-6 text-center font-bold text-lg text-green-600';
             fb.classList.remove('hidden');
@@ -884,7 +920,6 @@ function showMathQuestion() {
         }
     }
 }
-
 
 function showTimeoutThenNext(){
   const fb = document.getElementById('answerFeedback');
